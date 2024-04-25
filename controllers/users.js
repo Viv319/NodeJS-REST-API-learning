@@ -1,72 +1,72 @@
-const Users = require('./models/Users.js')
+const User = require('../models/User.js')
 
-const getUsers = async (req,res)=>{
-    try{
-        const users = await Users.find()
-        res.json({
-            status: 'SUCCESS',
-            data:users
-        })
-    }catch(error){
-        res.json({
-            status: 'FAILED',
-            message: 'Something went wrong'
-        })
-    }
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json({
+      status: 'SUCCESS',
+      data: users
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'FAILED',
+      message: 'Something went wrong'
+    })
+  }
 }
 
-const createUsers =  async (req,res)=>{
-    try{
-        const { firstName, lastName, email, avatar } = req.body
-        await Users.create({ firstName, lastName, email, avatar })
-        res.json({
-            status: 'SUCCESS',
-            data: 'user created successfully'
-        })
-    }catch(error){
-        res.json({
-            status: 'FAILED',
-            message: 'Something went wrong'
-        })
-    }
+const createUser = async (req, res) => {
+  try {
+    const { firstName, lastName, email, avatar } = req.body
+    await User.create({ firstName, lastName, email, avatar })
+    res.json({
+      status: 'SUCCESS',
+      message: 'User created successfully'
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'FAILED',
+      message: 'Something went wrong'
+    })
+  }
 }
 
-const updateUsers = async (req,res)=>{
-    try{
-        const { id } = req.params
-        const { firstName, lastName, email, avatar }= req.body
-        await Users.findByIdAndUpdate(id, { firstName, lastName, email, avatar })
-        res.json({
-            status: 'SUCCESS',
-            data: 'user updated successfully'
-        })
-    }catch(error){
-        res.json({
-            status: 'FAILED',
-            message: 'Something went wrong'
-        })
-    }
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { firstName, lastName, email, avatar } = req.body
+    await User.findByIdAndUpdate(id, { firstName, lastName, email, avatar })
+    res.json({
+      status: 'SUCCESS',
+      message: 'User updated successfully'
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'FAILED',
+      message: 'Something went wrong'
+    })
+  }
 }
 
-const deleteUsers = async (req,res)=>{
-    try{
-        const { id } = req.params
-        await Users.findByIdAndDelete(id)
-        res.json({
-            status: 'SUCCESS',
-            data: 'user deleted successfully'
-        })
-    }catch(error){
-        res.json({
-            status: 'FAILED',
-            message: 'Something went wrong'
-        })
-    }
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    await User.findByIdAndDelete(id)
+    res.json({
+      status: 'SUCCESS',
+      message: 'User deleted successfully'
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'FAILED',
+      message: 'Something went wrong'
+    })
+  }
 }
 
 module.exports = {
-    getUsers,
-    createUsers,
-    updateUsers,
-    deleteUsers
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser
 }
