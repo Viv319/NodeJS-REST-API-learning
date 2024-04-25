@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
   res.send('Our first Node Express Server :)')
 })
 
-app.listen(process.env.PORT, () => {
+const port =process.env.PORT || 3000;
+
+app.listen(port, () => {
   mongoose
     .connect(process.env.MONGODB_URL)
     .then(() => console.log('Server is up :)'))
